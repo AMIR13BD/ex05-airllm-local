@@ -1,0 +1,24 @@
+{
+  "version": "1.00",
+  "models": {
+    "main": "Qwen/Qwen2.5-14B-Instruct",
+    "tiny": "Qwen/Qwen2.5-0.5B-Instruct"
+  },
+  "quant_levels": {
+    "fp16": null,
+    "8bit": "8bit",
+    "4bit": "4bit"
+  },
+  "generation": {
+    "max_new_tokens_smoke": 16,
+    "max_new_tokens_bench": 32,
+    "use_cache": true
+  },
+  "prompts": {
+    "short_factual": "What is the capital of Israel? Answer in one sentence.",
+    "medium_reasoning": "Explain what an operating system page fault is and why it matters for performance.",
+    "long_summarize": "Summarize the trade-off between latency and the ability to run very large language models on limited VRAM."
+  },
+  "sampler_hz": 10,
+  "resource_warn_vram_mib": 7800
+}

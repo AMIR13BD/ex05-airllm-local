@@ -1,0 +1,10 @@
+{
+  "model": "Qwen/Qwen2.5-14B-Instruct",
+  "cache": "C:\\Users\\Muhamad daher\\Desktop\\orch5\\.airllm_cache",
+  "quants": {
+    "fp16": {
+      "status": "running",
+      "started": "23:40:10"
+    }
+  }
+}

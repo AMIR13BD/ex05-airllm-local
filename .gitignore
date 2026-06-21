@@ -10,10 +10,17 @@ airllm_cache/
 hf_cache/
 models/
 
-# Secrets — never commit the Hugging Face token
+# Secrets — never commit tokens/keys
 .env
 *.token
 HF_TOKEN*
+*.key
+*.pem
+credentials.json
+
+# Logs (verbose; keep the dir, not the contents)
+logs/*.log
+logs/*.out
 
 # Frozen lock (optional, generated)
 requirements.lock.txt

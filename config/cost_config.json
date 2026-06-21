@@ -1,0 +1,21 @@
+{
+  "version": "1.00",
+  "currency": { "primary": "NIS", "nis_per_usd": 3.70 },
+  "electricity": { "nis_per_kwh": 0.60, "_note": "Israel residential incl. VAT (~0.60-0.64)" },
+  "hardware": {
+    "gpu_tdp_w": 220,
+    "cpu_tdp_w": 95,
+    "capex_nis": 1800,
+    "_capex_note": "marginal RTX 3070 cost; amortized over lifetime_years",
+    "lifetime_years": 3,
+    "maintenance_nis_per_year": 200
+  },
+  "cloud_gpu": { "usd_per_hour": 0.40, "_note": "approx rented RTX 3070/A10-class per-hour" },
+  "api_prices_usd_per_1m_tokens": {
+    "claude-haiku":  { "input": 0.80, "output": 4.00 },
+    "claude-sonnet": { "input": 3.00, "output": 15.00 },
+    "gpt-4o-mini":   { "input": 0.15, "output": 0.60 }
+  },
+  "cache_discount": { "enabled": true, "cached_input_multiplier": 0.10,
+    "_note": "Prompt/Context Caching bills repeated static prefix tokens ~10x cheaper" }
+}

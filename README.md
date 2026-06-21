@@ -5,7 +5,8 @@
 > quantization, with full performance benchmarking and an on-prem-vs-API cost analysis.
 
 This README **is** the report — every table, graph, and screenshot is embedded inline.
-See `PRD.md`, `PLAN.md`, `TODO.md` for requirements, plan, and progress.
+See [`docs/PRD.md`](docs/PRD.md), [`docs/PLAN.md`](docs/PLAN.md), [`docs/TODO.md`](docs/TODO.md)
+for requirements, plan, and progress, and [`docs/PROMPTS.md`](docs/PROMPTS.md) for the prompt log.
 
 ## 1. Hardware & model justification
 - CPU: Intel i9-9900K (8C/16T) · RAM: 32 GB · GPU: RTX 3070 **8 GB** (confirmed via
