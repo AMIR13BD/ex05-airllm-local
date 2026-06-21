@@ -1,0 +1,19 @@
+# Python env
+.venv/
+__pycache__/
+*.pyc
+
+# AirLLM layer shards + HF model cache + re-sharded copies (huge — never commit)
+.airllm_cache/
+airllm_cache/
+.prepared_models/
+hf_cache/
+models/
+
+# Secrets — never commit the Hugging Face token
+.env
+*.token
+HF_TOKEN*
+
+# Frozen lock (optional, generated)
+requirements.lock.txt

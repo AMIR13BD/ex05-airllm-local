@@ -1,0 +1,42 @@
+# EX05 — AirLLM / quantization / benchmarking
+#
+# torch is installed SEPARATELY with the CUDA wheel index (keep it out of this file).
+# Pin to 2.4.1 — torch 2.6 changed meta-parameter assignment so AirLLM's
+# set_module_tensor_to_device leaves streamed weights on the `meta` device
+# ("Tensor on device cuda:0 is not on the expected device meta!"):
+#   pip install torch==2.4.1 --index-url https://download.pytorch.org/whl/cu124
+# Then:
+#   pip install -r requirements.txt
+#
+# ⚠️ PINNED ON PURPOSE. The latest releases break AirLLM 2.11 (this is exactly the
+# "don't use the newest libs" trap from the assignment):
+#   - optimum 2.x  removed `optimum.bettertransformer`  -> airllm import fails
+#   - transformers 5.x / huggingface_hub 1.x  -> incompatible with airllm internals
+#   - transformers >=4.45  refactored Qwen2 (rotary moved to model level + new decoder
+#       forward signature) -> AirLLM's manual per-layer loop leaves weights on `meta`
+#       ("Tensor on device cuda:0 is not on the expected device meta!"). 4.44.2 is the
+#       last release with the structure AirLLM 2.11 expects.
+#   - numpy 2.x + datasets 5.x + pyarrow 24  -> access-violation segfault on import
+# The versions below are a known-good, mutually compatible set.
+
+# --- Core LLM stack (AirLLM-compatible) ---
+airllm==2.11.0
+transformers==4.44.2
+tokenizers==0.19.1
+huggingface_hub==0.24.7
+optimum==1.23.3          # still ships optimum.bettertransformer (airllm needs it)
+accelerate==0.34.2
+safetensors==0.4.5
+bitsandbytes==0.44.1     # Windows wheels, 4-bit/8-bit
+sentencepiece==0.2.0
+
+# --- Numerics (numpy <2 avoids the pyarrow/datasets segfault) ---
+numpy==1.26.4
+scipy==1.13.1
+pandas==2.2.3
+
+# --- Measurement & analysis ---
+psutil==6.1.0
+nvidia-ml-py==12.560.30  # provides the `pynvml` module: VRAM + power draw
+matplotlib==3.9.2
+datasets==2.21.0         # small text sample for the perplexity / quality sweep (extension)
