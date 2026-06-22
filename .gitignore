@@ -1,7 +1,11 @@
-# Python env
-.venv/
+# Python env (any venv variant)
+.venv*
 __pycache__/
 *.pyc
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
 
 # AirLLM layer shards + HF model cache + re-sharded copies (huge — never commit)
 .airllm_cache/

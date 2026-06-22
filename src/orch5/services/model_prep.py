@@ -24,8 +24,8 @@ def ensure_airllm_ready(repo_id: str, work_dir) -> str:
         return str(out)
 
     import torch
-    from transformers import AutoModelForCausalLM, AutoTokenizer
     from safetensors import safe_open
+    from transformers import AutoModelForCausalLM, AutoTokenizer
 
     out.mkdir(parents=True, exist_ok=True)
     model = AutoModelForCausalLM.from_pretrained(repo_id, torch_dtype=torch.float16)
@@ -39,7 +39,7 @@ def ensure_airllm_ready(repo_id: str, work_dir) -> str:
 
     single = out / "model.safetensors"
     with safe_open(str(single), framework="pt") as fh:
-        weight_map = {k: "model.safetensors" for k in fh.keys()}
+        weight_map = {k: "model.safetensors" for k in list(fh.keys())}
     (out / "model.safetensors.index.json").write_text(json.dumps(
         {"metadata": {"total_size": single.stat().st_size}, "weight_map": weight_map}, indent=2))
     return str(out)

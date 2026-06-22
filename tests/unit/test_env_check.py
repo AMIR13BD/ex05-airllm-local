@@ -8,3 +8,10 @@ def test_collect_returns_expected_keys():
     # the pinned core packages must be reported (value may be a version or 'MISSING (...)')
     for pkg in ["torch", "transformers", "airllm", "numpy"]:
         assert pkg in info["packages"]
+
+
+def test_report_prints_and_returns(capsys):
+    info = env_check.report()
+    out = capsys.readouterr().out
+    assert "Python" in out
+    assert info["packages"]  # same structured snapshot returned

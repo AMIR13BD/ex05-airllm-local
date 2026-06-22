@@ -6,9 +6,9 @@ total runtime, estimated GPU energy. Returns a RunRecord; persistence is the SDK
 import time
 from dataclasses import asdict, dataclass, field
 
+from orch5.services.model_prep import ensure_airllm_ready
 from orch5.shared import config
 from orch5.shared.samplers import ResourceSampler
-from orch5.services.model_prep import ensure_airllm_ready
 
 
 @dataclass
