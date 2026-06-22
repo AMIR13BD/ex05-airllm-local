@@ -1,10 +1,18 @@
 {
   "model": "Qwen/Qwen2.5-14B-Instruct",
-  "cache": "C:\\Users\\Muhamad daher\\Desktop\\orch5\\.airllm_cache",
+  "cache": "C:\\Users\\Muhamad daher\\Desktop\\orch5\\.airllm_cache\\Qwen2.5-14B-Instruct",
   "quants": {
     "fp16": {
-      "status": "running",
-      "started": "23:40:10"
+      "status": "ready",
+      "minutes": 1.5
+    },
+    "8bit": {
+      "status": "ready",
+      "minutes": 1.4
+    },
+    "4bit": {
+      "status": "error",
+      "error": "NotEnoughSpaceException: Not enough space. Free space under C:\\Users\\Muhamad daher\\Desktop\\orch5\\.airllm_cache\\Qwen2.5-14B-Instruct: 77.75GB. Model total size: 97.84GB. existing space under C:\\Users\\Muhamad daher\\Desktop\\orch5\\.airllm_cache\\Qwen2.5-14B-Instruct assuming can reuse: 0.00GB. "
     }
   }
 }

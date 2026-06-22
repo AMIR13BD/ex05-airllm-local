@@ -17,6 +17,10 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 MODEL = "Qwen/Qwen2.5-14B-Instruct"
 CACHE = Path(os.environ.get("AIRLLM_CACHE", REPO / ".airllm_cache"))
+# Per-model shard subdir: AirLLM uses fixed dir names (splitted_model[.Xbit]) so DIFFERENT
+# models MUST NOT share one path or their layers collide (0.5B smoke leftovers corrupted the
+# 14B fp16/4bit splits on the first run). Isolate by model slug.
+SHARDS = CACHE / MODEL.split("/")[-1]
 QUANTS = [("fp16", None), ("8bit", "8bit"), ("4bit", "4bit")]
 MIN_FREE_GB = 90          # full sweep peaks ~84 GB on disk; refuse to start below this
 
@@ -44,8 +48,8 @@ def main() -> int:
         log("ABORT: insufficient free disk; not starting downloads.")
         return 2
 
-    CACHE.mkdir(parents=True, exist_ok=True)
-    state = {"model": MODEL, "cache": str(CACHE), "quants": {}}
+    SHARDS.mkdir(parents=True, exist_ok=True)
+    state = {"model": MODEL, "cache": str(SHARDS), "quants": {}}
     write_status(state)
 
     from airllm import AutoModel  # heavy import; prints bnb/cache notices
@@ -57,7 +61,7 @@ def main() -> int:
         write_status(state)
         try:
             model = AutoModel.from_pretrained(
-                MODEL, compression=comp, layer_shards_saving_path=str(CACHE))
+                MODEL, compression=comp, layer_shards_saving_path=str(SHARDS))
             del model
         except Exception as exc:  # noqa: BLE001 — record and continue to next quant
             log(f"ERROR while preparing {name}: {type(exc).__name__}: {exc}")
