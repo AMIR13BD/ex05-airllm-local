@@ -2,8 +2,10 @@
 
 Audited the **entire** EX05 assignment (§1–§11, not only §5.x) and
 `software_submission_guidelines-V3.pdf` against the current repo. Verified facts: ruff = 0
-errors; pytest = **30 passed, 90.03% coverage**; all `src/` files ≤150 LOC (max 113);
-docs/, config/, src/orch5 package, tests/, pyproject + uv.lock all present.
+errors; pytest = **30 passed, 90.03% coverage**; **every code file ≤150 *code* lines** —
+re-measured excluding blank + comment-only lines per guideline §3.2, **max = 95 code lines**
+(`scripts/make_figures.py`), so no file needs splitting; docs/, config/, src/orch5 package,
+tests/, pyproject + uv.lock all present.
 
 ## Summary
 - **Mandatory:** all **PASS** except a few soft **WARN**s (screenshots, strict-TDD process,
@@ -57,7 +59,7 @@ Legend: **M** = mandatory, **O** = optional. Status = PASS / WARN / FAIL.
 | §2.3 | Per-mechanism PRD for the central algorithm | M | PASS | `docs/PRD_airllm_pipeline.md` | — |
 | §2.5 | Work process PRD→PLAN→TODO→develop→update README | M | PASS | followed; `docs/PROMPTS.md` logs it | — |
 | §2.4 | Package layout: `src/<pkg>/{sdk,services,shared,constants,main}` | M | PASS | `src/orch5/...` | — |
-| §3.2 | Files **≤150 LOC** | M | PASS | max = 113 (`make_figures.py`) | — |
+| §3.2 | Each code file **≤150 *code* lines** (blank + comment-only lines excluded) | M | PASS | **max = 95 code lines** (`scripts/make_figures.py`); all other files smaller — re-verified with a code-line counter, not `wc -l` | — (no splitting needed) |
 | §3.3 | Docstrings for **every** function/class/module; "why" comments | M | WARN | modules + most functions have docstrings | a few small helpers lack a docstring (cosmetic; ruff has no docstring rule) |
 | §3.3 | DRY, descriptive names, single-responsibility | M | PASS | package modules | — |
 | §4 | **SDK architecture** — business logic via SDK | M | PASS | `Ex05SDK`; `run_benchmarks` uses it | WARN: `make_figures.py`/`demo_chat.py` call services/AirLLM directly (analysis & one-off demo) |
