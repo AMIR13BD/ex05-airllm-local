@@ -14,8 +14,8 @@ from airllm import AutoModel  # noqa: E402
 
 from orch5.shared import config  # noqa: E402
 
-PROMPT = "What is a large language model? Answer in one simple sentence."
-MAX_NEW = 28
+PROMPT = "What is a large language model? Answer in one complete simple sentence."
+MAX_NEW = 40
 
 
 def main() -> int:

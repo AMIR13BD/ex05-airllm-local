@@ -368,11 +368,12 @@ to [`results/demo_chat.json`](results/demo_chat.json) and
 ```
 $ uv run python scripts/demo_chat.py
 ```
-**Prompt:** *"What is a large language model? Answer in one simple sentence."*
+**Prompt:** *"What is a large language model? Answer in one complete simple sentence."*
 
-**Real model answer** (28 tokens, ~237 s; cut off at `max_new_tokens=28`):
-> A large language model is an artificial intelligence model that processes and generates
-> human-like text based on the input it receives, trained on vast amounts of …
+**Real model answer** (29 tokens, ~267 s — the model stopped at end-of-sequence on its own, so
+the sentence is complete, not truncated):
+> A large language model is a complex artificial intelligence system that uses deep learning to
+> process and generate human-like text based on the input it receives.
 
 This is a single short generation to confirm the local LLM answers a normal question — it is
 **not** a performance measurement (see §4 for the actual benchmarks).
