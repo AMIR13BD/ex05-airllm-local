@@ -20,7 +20,10 @@ CONFIGS = [
     {"id": "A1", "kind": "airllm", "model": "main", "quant": "fp16", "device": "cuda"},
     {"id": "A2", "kind": "airllm", "model": "main", "quant": "8bit", "device": "cuda"},
     {"id": "A3", "kind": "airllm", "model": "main", "quant": "4bit", "device": "cuda"},
-    {"id": "C1", "kind": "airllm", "model": "main", "quant": "4bit", "device": "cpu"},
+    # CPU comparison MUST be fp16: bitsandbytes 4/8-bit is CUDA-only. Few tokens — 14B on
+    # CPU is extremely slow; per-token metrics (TTFT/TPOT) are still comparable.
+    {"id": "C1", "kind": "airllm", "model": "main", "quant": "fp16", "device": "cpu",
+     "max_new_tokens": 4},
 ]
 
 
@@ -71,7 +74,8 @@ def main() -> int:
             if cfg["kind"] == "baseline":
                 run_baseline(out)
             else:
-                rec = sdk.benchmark(cfg["model"], cfg["quant"], cfg["device"], save=True)
+                rec = sdk.benchmark(cfg["model"], cfg["quant"], cfg["device"], save=True,
+                                    max_new_tokens=cfg.get("max_new_tokens"))
                 log(f"{cfg['id']} DONE: TTFT={rec.ttft_s:.2f}s TPOT={rec.tpot_ms:.0f}ms "
                     f"thr={rec.throughput_tok_s:.3f} tok/s peakVRAM={rec.peak_vram_mib:.0f}MiB "
                     f"peakRAM={rec.peak_ram_gb:.1f}GB in {(time.time()-t0)/60:.1f}min")

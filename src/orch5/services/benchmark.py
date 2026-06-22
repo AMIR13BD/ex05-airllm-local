@@ -63,8 +63,11 @@ def run_airllm(model_id: str, quant: str, device: str, prompt: str,
 
     rec = RunRecord(model=model_id, quant=quant, device="cuda" if use_cuda else "cpu")
     prepared = ensure_airllm_ready(model_id, config.PREPARED_DIR)
+    # AirLLM defaults running_device to cuda:0; pass device explicitly so CPU runs place ALL
+    # layers on the CPU (otherwise layers go to GPU and mismatch the CPU input tensor).
     model = AutoModel.from_pretrained(prepared, compression=compression,
-                                      layer_shards_saving_path=str(shards))
+                                      layer_shards_saving_path=str(shards),
+                                      device="cuda:0" if use_cuda else "cpu")
 
     messages = [{"role": "user", "content": prompt}]
     text = model.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)

@@ -1,0 +1,18 @@
+{
+  "model": "Qwen/Qwen2.5-14B-Instruct",
+  "quant": "fp16",
+  "device": "cuda",
+  "prompt_tokens": 45,
+  "output_tokens": 32,
+  "ttft_s": 36.8593578,
+  "tpot_ms": 33421.96165483877,
+  "throughput_tok_s": 0.029824589405429817,
+  "total_runtime_s": 1109.827734999999,
+  "peak_ram_gb": 17.666393280029297,
+  "peak_vram_mib": 3580.64453125,
+  "avg_gpu_power_w": 37.32952651408119,
+  "gpu_energy_wh": 11.508151072151426,
+  "output_text": "<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\nExplain what an operating system page fault is and why it matters for performance.<|im_end|>\n<|im_start|>assistant\nA page fault in the context of computer operating systems occurs when a program tries to access a memory page that is not currently loaded into the main memory (RAM).",
+  "notes": "",
+  "extra": {}
+}

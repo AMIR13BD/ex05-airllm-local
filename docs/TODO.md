@@ -6,10 +6,29 @@ Work top-to-bottom. **Start small, verify the pipeline, then scale.** Each box m
 
 ---
 
-## ✅ Progress (updated 2026-06-21)
+## ✅ Progress (updated 2026-06-22)
 
-**DONE — env + pipeline verified on the tiny model (Qwen2.5-0.5B), fp16 AND 4-bit.**
-TTFT ~2–3 s, ~0.4–0.5 tok/s — the expected slow AirLLM streaming profile.
+**DONE — full 14B GPU sweep measured (real numbers):**
+
+| run | TTFT | TPOT | tok/s | peak VRAM | runtime |
+|---|---|---|---|---|---|
+| B0 direct load | — | — | — | — | **CUDA OOM** (22.46 GB → 8 GB) |
+| A1 fp16 | 36.9 s | 33.4 s | 0.030 | 3581 MiB | 18.6 min |
+| A2 8bit | 23.6 s | 11.5 s | 0.084 | 4353 MiB | 6.8 min |
+| A3 4bit | 14.8 s | 9.0 s | 0.109 | 5091 MiB | 6.1 min |
+| C1 fp16 CPU | _running_ | | | | |
+
+Repo restructured to mandated layout (docs/, config/, `src/orch5` SDK package, tests/,
+pyproject). Caught + fixed a shard-cache collision (per-model dirs). CPU run needed
+`device="cpu"` passed to AirLLM. 4 commits pushed.
+
+**NEXT:** finish C1 → uv migration + uv.lock → pytest/coverage + ruff → figures + cost
+break-even → finalize README report.
+
+---
+
+### Earlier (2026-06-21): env + tiny-model pipeline verified
+fp16 AND 4-bit smoke on Qwen2.5-0.5B passed (TTFT ~2–3 s, ~0.4–0.5 tok/s).
 
 **Working version stack (pinned — newer libs all broke AirLLM 2.11):**
 `torch==2.4.1+cu124`, `transformers==4.44.2`, `tokenizers==0.19.1`,
