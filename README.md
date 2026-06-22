@@ -26,7 +26,7 @@ friendly. (32B would blow the time budget; 8B fits in 32 GB RAM, weakening the s
 ## 2. Environment & the "don't use the newest libraries" lesson
 
 AirLLM 2.11 broke against every current release; the project is pinned to a coherent
-2024-era stack (full rationale in [`requirements`/`pyproject.toml`](pyproject.toml)):
+2024-era stack (single source of truth: [`pyproject.toml`](pyproject.toml) + `uv.lock`):
 
 | Library | "latest" (broke) | pinned | failure |
 |---|---|---|---|

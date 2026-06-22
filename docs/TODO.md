@@ -16,14 +16,18 @@ Work top-to-bottom. **Start small, verify the pipeline, then scale.** Each box m
 | A1 fp16 | 36.9 s | 33.4 s | 0.030 | 3581 MiB | 18.6 min |
 | A2 8bit | 23.6 s | 11.5 s | 0.084 | 4353 MiB | 6.8 min |
 | A3 4bit | 14.8 s | 9.0 s | 0.109 | 5091 MiB | 6.1 min |
-| C1 fp16 CPU | _running_ | | | | |
+| C1 fp16 CPU | 570.7 s | 620 s | 0.0016 | (cpu) 18.9 GB RAM | 50 min (4 tok) |
 
-Repo restructured to mandated layout (docs/, config/, `src/orch5` SDK package, tests/,
-pyproject). Caught + fixed a shard-cache collision (per-model dirs). CPU run needed
-`device="cpu"` passed to AirLLM. 4 commits pushed.
+**COMPLETE.** All deliverables done and pushed (8 commits):
+- ✅ baseline OOM + AirLLM fp16/8bit/4bit (GPU) + fp16 (CPU) — real measured data
+- ✅ figures (metric charts, break-even, Roofline) + comparison table + cost_summary
+- ✅ cost finding: on-prem never breaks even on cost (energy/req > API) → privacy-only case
+- ✅ mandated layout: docs/, config/, `src/orch5` SDK package, tests/, pyproject + uv.lock
+- ✅ uv toolchain verified; ruff clean; 29 tests + integration; coverage 90% (≥85%)
+- ✅ README finalized as the report (RQ1–RQ6 answered, concept linkage, embedded figures)
 
-**NEXT:** finish C1 → uv migration + uv.lock → pytest/coverage + ruff → figures + cost
-break-even → finalize README report.
+Optional follow-ups: LoRA/QLoRA demo (2nd extension); delete leftover pip `.venv` &
+`.prepared_models` to reclaim disk (needs the user's OK per the large-file rule).
 
 ---
 
