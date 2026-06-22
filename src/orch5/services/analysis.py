@@ -43,6 +43,11 @@ def comparison_rows(results: dict) -> list[dict]:
     return rows
 
 
+def _fmt(v) -> str:
+    """Compact, readable cell formatting (4 significant figures for floats)."""
+    return f"{v:.4g}" if isinstance(v, float) else str(v)
+
+
 def markdown_table(rows: list[dict]) -> str:
     """Render comparison rows as a GitHub-flavored Markdown table."""
     if not rows:
@@ -52,6 +57,6 @@ def markdown_table(rows: list[dict]) -> str:
     sep = "|" + "|".join(["---"] * len(cols)) + "|"
     body = []
     for r in rows:
-        cells = [str(r.get(c, "")) for c in cols]
+        cells = [_fmt(r.get(c, "")) for c in cols]
         body.append("| " + " | ".join(cells) + " |")
     return "\n".join([head, sep, *body])

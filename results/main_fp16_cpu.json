@@ -1,0 +1,18 @@
+{
+  "model": "Qwen/Qwen2.5-14B-Instruct",
+  "quant": "fp16",
+  "device": "cpu",
+  "prompt_tokens": 45,
+  "output_tokens": 4,
+  "ttft_s": 570.7419258999944,
+  "tpot_ms": 620008.4374000023,
+  "throughput_tok_s": 0.0016455709692412108,
+  "total_runtime_s": 3001.6023139000026,
+  "peak_ram_gb": 18.868907928466797,
+  "peak_vram_mib": 1354.00390625,
+  "avg_gpu_power_w": 26.55564350686403,
+  "gpu_energy_wh": 22.14152249925185,
+  "output_text": "<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\nExplain what an operating system page fault is and why it matters for performance.<|im_end|>\n<|im_start|>assistant\nA page fault in",
+  "notes": "",
+  "extra": {}
+}

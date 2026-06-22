@@ -87,9 +87,11 @@ def cost_summary(results) -> dict:
            "capex_nis": cost.onprem_capex_nis(config.COST_CFG), "providers": {}}
     for prov in config.COST_CFG["api_prices_usd_per_1m_tokens"]:
         api = cost.api_cost_nis(config.COST_CFG, prov, in_tok, out_tok)
+        be = cost.breakeven_volume(config.COST_CFG, api, opex)
         out["providers"][prov] = {
             "api_nis_per_req": round(api, 6),
-            "breakeven_requests": cost.breakeven_volume(config.COST_CFG, api, opex),
+            # on-prem energy/req already exceeds API price -> never breaks even (valid JSON)
+            "breakeven_requests": "never" if be == float("inf") else round(be),
         }
     (config.RESULTS_DIR / "cost_summary.json").write_text(json.dumps(out, indent=2))
     return out

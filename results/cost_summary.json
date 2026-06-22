@@ -1,0 +1,19 @@
+{
+  "based_on": "main_4bit_cuda",
+  "onprem_opex_nis_per_req": 0.002895,
+  "capex_nis": 2400,
+  "providers": {
+    "claude-haiku": {
+      "api_nis_per_req": 0.000607,
+      "breakeven_requests": "never"
+    },
+    "claude-sonnet": {
+      "api_nis_per_req": 0.002276,
+      "breakeven_requests": "never"
+    },
+    "gpt-4o-mini": {
+      "api_nis_per_req": 9.6e-05,
+      "breakeven_requests": "never"
+    }
+  }
+}
