@@ -234,6 +234,19 @@ The chosen extension, concretely:
 
 ![roofline](figures/roofline.png)
 
+### Future work (not performed in this submission)
+The following are **possible future extensions only — they were not carried out here**, because
+the chosen original extension (the quantization sweep + Roofline + energy/power analysis above)
+is already a complete, self-contained extension:
+- **Page-cache warm-up measurement** — quantify cold-vs-warm OS page-cache effects on TTFT/TPOT
+  across repeated runs.
+- **Shard-location I/O sensitivity** — compare NVMe vs SATA vs an external drive for
+  `layer_shards_saving_path` to isolate disk bandwidth's effect on per-token latency.
+- **Comparison across different model sizes** — e.g. 0.5B / 3B / 14B on the same hardware.
+- **LoRA / QLoRA fine-tuning.**
+
+These are listed for completeness as next steps, not as work done in this submission.
+
 ## 8. Reproduce
 ```powershell
 uv sync                                   # creates .venv from pyproject + uv.lock
