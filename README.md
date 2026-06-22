@@ -18,7 +18,7 @@ Every EX05 requirement and where it is answered in this submission:
 | EX05 section | Where to find it |
 |---|---|
 | **§5.1** Hardware documentation + model choice & justification | [§1](#1-hardware--model-justification) + [`docs/PRD.md`](docs/PRD.md) + Evidence [§11.1](#111-hardware-confirmation) |
-| **§5.2** Direct baseline run (must fail / crawl) | [§4](#4-results) (B0) + [`results/baseline_b0.json`](results/baseline_b0.json) + Evidence [§11.2](#112-baseline-cuda-oom) |
+| **§5.2** Direct baseline run (expected to fail / crawl) | [§4](#4-results) (B0) + [`results/baseline_b0.json`](results/baseline_b0.json) + Evidence [§11.2](#112-baseline-cuda-oom) |
 | **§5.3** AirLLM + quantization (FP16/8-bit/4-bit) | [§3](#3-experiment), [§4](#4-results) + `src/orch5/services/benchmark.py`, `model_prep.py` |
 | **§5.4** Measurement & comparison (TTFT, ITL/TPOT, throughput, RAM/VRAM, runtime, power, quality) | [§4](#4-results) tables + charts + [`results/comparison.md`](results/comparison.md), [`results/`](results/) JSON |
 | **§5.5** Cost analysis: On-Prem vs API (+ Cloud GPU) + break-even | [§6](#6-cost-analysis--on-prem-vs-api-vs-cloud-gpu-) + `src/orch5/services/cost.py` + [`results/cost_summary.json`](results/cost_summary.json) + `figures/breakeven.png` |
@@ -36,9 +36,10 @@ Every EX05 requirement and where it is answered in this submission:
 | RAM | 32 GB | caps the FP16 working set |
 | Storage | WD Blue SN570 **1 TB NVMe** (~3.5 GB/s) | **the real AirLLM bottleneck** — weights stream from here every token |
 
-**Why Qwen2.5-14B-Instruct:** FP16 ≈ 29 GB cannot fit 8 GB VRAM (so a direct run *must*
-fail), it stresses 32 GB RAM, finishes in the time budget, and Qwen is AirLLM-`AutoModel`
-friendly. (32B would blow the time budget; 8B fits in 32 GB RAM, weakening the story.)
+**Why Qwen2.5-14B-Instruct:** FP16 ≈ 29 GB cannot fit 8 GB VRAM (so a direct run is *expected
+to* fail with CUDA OOM — confirmed in §4), it stresses 32 GB RAM, finishes in the time budget,
+and Qwen is AirLLM-`AutoModel` friendly. (32B would blow the time budget; 8B fits in 32 GB RAM,
+weakening the story.)
 
 ## 2. Environment & the "don't use the newest libraries" lesson
 
@@ -282,8 +283,10 @@ Everything the assignment's §7 asks for is in this repo:
 
 ## 11. Evidence
 
-Real terminal output / saved results from this run (not screenshots — verbatim transcripts;
-nothing fabricated). Re-runnable via the §8/§9 commands.
+**Verbatim terminal-transcript evidence** (copied from real terminal output and saved
+`results/`/`logs/` files — **not screenshots**, and nothing fabricated). No screenshot PNGs are
+included because this was run headlessly (WSL → native-Windows via interop), so there is no GUI
+to capture; every block below is reproducible via the §8/§9 commands.
 
 ### 11.1 Hardware confirmation
 Preflight on the target PC + `uv run python -m orch5.main env`:
