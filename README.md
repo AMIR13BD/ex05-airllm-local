@@ -333,3 +333,22 @@ TOTAL                                341     34    90%
 Required test coverage of 85.0% reached. Total coverage: 90.03%
 30 passed, 14 warnings in 19.18s
 ```
+
+### 11.7 Local chat demo
+A short **functionality check (not a benchmark)** — one normal user question answered by the
+local model on the already-prepared **Qwen2.5-14B 4-bit AirLLM shards (RTX 3070, GPU)**. Saved
+to [`results/demo_chat.json`](results/demo_chat.json) and
+[`logs/demo_chat_transcript.md`](logs/demo_chat_transcript.md).
+
+**Command:**
+```
+$ uv run python scripts/demo_chat.py
+```
+**Prompt:** *"What is a large language model? Answer in one simple sentence."*
+
+**Real model answer** (28 tokens, ~237 s; cut off at `max_new_tokens=28`):
+> A large language model is an artificial intelligence model that processes and generates
+> human-like text based on the input it receives, trained on vast amounts of …
+
+This is a single short generation to confirm the local LLM answers a normal question — it is
+**not** a performance measurement (see §4 for the actual benchmarks).

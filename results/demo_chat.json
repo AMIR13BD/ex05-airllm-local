@@ -1,0 +1,9 @@
+{
+  "setup": "Qwen2.5-14B-Instruct via AirLLM 4-bit on RTX 3070 (GPU)",
+  "command": "uv run python scripts/demo_chat.py",
+  "prompt": "What is a large language model? Answer in one simple sentence.",
+  "answer": "A large language model is an artificial intelligence model that processes and generates human-like text based on the input it receives, trained on vast amounts of",
+  "max_new_tokens": 28,
+  "output_tokens": 28,
+  "elapsed_s": 237.2
+}
